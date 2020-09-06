@@ -41,3 +41,20 @@
 // => ex. webpack, eslint, imagein 
 // ◽ global installation
 // => path: %USERPROFILE%\AppData\Roaming\npm\node_modules
+
+
+// ✅ NPM custom commands
+// : All NPM custom commands can be executed in the form of 'npm run <command name>'.
+// => User just write simple commands instead of lengthy ones. 😊
+/* ex.
+    "scripts": {
+        "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    }
+*/
+// => Another advantage of custom commands is that they can be combined with other custom commands as well as the Run option.
+/* ex.
+    "scripts": {
+        "build": "webpack",
+        "deploy": "npm run build -- --mode production"
+      }
+*/
