@@ -58,3 +58,86 @@
         "deploy": "npm run build -- --mode production"
       }
 */
+
+// ✅ Major concepts to understand for webpack to build
+// ◽ Entry
+// : The entry property is the first entry point and JavaScript file path required to convert Web resources.
+/*
+    // webpack.config.js
+    module.exports = {
+        entry: './src/index.js'
+    }
+*/
+// => What contents should be into entry file?
+// : The file specified in the entry property must contain the overall structure and content of the web application.
+
+// => Entry points can be multiple.
+// : When separating entry points, as shown above, is ideal for multi-page applications where the server drops the information when entering a specific page rather than a single-page application.
+/*
+    entry: {
+      login: './src/LoginView.js',
+      main: './src/MainView.js'
+    }
+*/
+// ◽ Output
+// : The output property indicates the file path of the result of turning the web pack.
+// => Unlike the entry property we learned earlier, we need to add options in object form.
+// => cf. https://www.hanumoka.net/2018/11/08/node-20181108-node-path-join-vs-resolve/ (path.resolve() API)
+/*
+// webpack.config.js
+    var path = require('path');
+
+    module.exports = {
+      output: {
+        filename: 'bundle.js',
+        path: path.resolve(__dirname, './dist')
+      }
+    }
+*/
+// ◽ Loader 
+// : Loader is a property that helps web packs convert web resources (HTML, CSS, Images, Font, etc.) rather than JavaScript files when interpreting web
+// => Use the name 'module', unlike entry or output properties.
+/*
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ['css-loader']
+        }
+      ]
+    }
+*/
+// => To summarize, the code above means that the CSS loader will be applied to all CSS files in the project.
+// => If you use multiple loaders, you can add the loader option to the rules array as shown below.
+/*
+    module.exports = {
+      module: {
+        rules: [
+          { test: /\.css$/, use: 'css-loader' },
+          { test: /\.ts$/, use: 'ts-loader' },
+          // ...
+        ]
+      }
+    }
+*/
+// => If you use multiple loaders for a specific file, be careful in the order in which they are applied. Loaders are applied from right to left by default.
+/*
+    module: {
+     rules: [
+       {
+         test: /\.scss$/,
+         use: ['css-loader', 'sass-loader']
+       }
+     ]
+    }
+*/
+// ◽ Plugin
+// : Plugin is a property that provides additional functionality to the basic behavior of a web pack.
+// => Compared to the loader, the loader is involved in the process of interpreting and converting files, while the plug-in is responsible for changing the shape of the result.
+// => Only object instances created with the constructor function can be added to an array of plug-ins.
+/*
+    // webpack.config.js
+    module.exports = {
+        plugins: []
+    }   
+*/
