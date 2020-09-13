@@ -6,7 +6,7 @@
 
 
 // ✅ Reasons why we need webpack
-// 1. Manage JavaScript Modules in File Units 
+// 1. Managing JavaScript Modules in File Units is uncomfortable
 // => ex. Unless you remember all the names of the variables, you can declare them duplicated or assign them an unintended value.
 // 2. Web Development Task Automation Tool
 // 3. Fast loading and high performance of Web applications
@@ -136,8 +136,58 @@
 // => Compared to the loader, the loader is involved in the process of interpreting and converting files, while the plug-in is responsible for changing the shape of the result.
 // => Only object instances created with the constructor function can be added to an array of plug-ins.
 /*
-    // webpack.config.js
-    module.exports = {
-        plugins: []
-    }   
+  // webpack.config.js
+  var webpack = require('webpack');
+  var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+  module.exports = {
+    plugins: [
+      new HtmlWebpackPlugin(),      
+      new webpack.ProgressPlugin()
+    ]
+  }
+
+    // cf. HTMLWebpackPlugin : Plug-in that generates HTML files from web packs
+    //     ProgressPlugin    : Plug-in to display the build progress of the web pack
 */
+
+// + Plug-in we often use: split-chunks-plugin, clean-webpack-plugin, image-webpack-loader, webpack-bundle-analyzer-plugin
+
+
+// ✅ Mode
+// : The concept of 'Mode' has been added since version 4 of the web pack.
+// => There are three modes of execution for a Web pack:
+// ◽ none
+// ◽ development
+// ◽ production
+// => The appearance of the web pack depends on each execution mode. In development mode, the webpack logs or outputs are more visible to developers, while in production mode, build processes such as basic file compression are added to optimize performance.
+// => If you do not set a default value for mode, it is automatically set to production mode.
+
+// ❗ When you develop a real web application with a web pack, you usually have to work in two separate cases:
+// ✔ Set up a Web pack to use when developing
+// ✔ Set up a Web pack to use when deploying after development
+
+// ex. With one web pack setup file, you can apply certain settings depending on the execution mode:
+// webpack.config.js
+module.exports = (env) => {
+  let entryPath = env.mode === 'production'
+    ? './public/index.js'
+    : './src/index.js';
+
+  return {
+    entry: entryPath,
+    output: {},
+    // ...
+  }
+}
+
+// package.json
+/*
+{
+  "build": "webpack",
+  "development": "npm run build -- --env.mode=development",
+  "production": "npm run build -- --env.mode=production"
+}
+*/
+// => If you look at the code above, the way the web pack setup file is changed from object to function format.
+// => In addition, the env factor handed over to the function represents an environment variable and can be passed to the execution option when running the web pack.
