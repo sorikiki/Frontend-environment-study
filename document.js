@@ -59,6 +59,7 @@
       }
 */
 
+
 // ✅ Major concepts to understand for webpack to build
 // ◽ Entry
 // : The entry property is the first entry point and JavaScript file path required to convert Web resources.
@@ -191,3 +192,14 @@ module.exports = (env) => {
 */
 // => If you look at the code above, the way the web pack setup file is changed from object to function format.
 // => In addition, the env factor handed over to the function represents an environment variable and can be passed to the execution option when running the web pack.
+
+
+// ✅ Webpack Dev Server
+// : When the web pack's build target file changes, you don't have to run the web pack command every time, but if you just change and save the code, you build it with the web pack and refresh your browser.
+/*
+  "scripts": {
+    "dev": "webpack-dev-server",
+    "build": "webpack"
+  }
+*/
+// => ❗ If you run a Web Pack Dev server to build a Web Pack, the results you build are not visible in the File Explorer or in the Projects folder.
